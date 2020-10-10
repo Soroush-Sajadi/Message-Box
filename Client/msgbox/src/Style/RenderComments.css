@@ -1,15 +1,24 @@
 .render-comments-wrapper {
     display: flex;
     flex-wrap: wrap;
+    height: 85vh;
+    overflow: auto;
+    
 }
+
 .render-comments-card {
     display: flex;
     flex-wrap: wrap;
     width: 50vh;
-    border: 1px solid;
+    height: 16vh;
     margin: 1vh;
-
+    -moz-box-shadow: inset 0 0 13vh #238;
+   -webkit-box-shadow: inset 0 0 13vh #238;
+   box-shadow: inset 0 0 13vh #238
 }
+    
+
+
 .render-comments-img {
     width: 25%;
 }
