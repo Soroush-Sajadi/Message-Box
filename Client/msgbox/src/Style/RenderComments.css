@@ -1,0 +1,45 @@
+.render-comments-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+.render-comments-card {
+    display: flex;
+    flex-wrap: wrap;
+    width: 50vh;
+    border: 1px solid;
+    margin: 1vh;
+
+}
+.render-comments-img {
+    width: 25%;
+}
+.render-comments-img img {
+    width: 7vh;
+    height: 7vh;
+    border-radius: 50%;
+    margin-top: 30%;
+    margin-left: 15%;
+}
+.render-comments-info-wrapper {
+    width: 75%;
+    height: 100%;
+}
+.render-comments-info-text-date {
+    display: flex;
+    height: 65%;
+}
+.render-comments-info-text-date h4 {
+    font-size: 2.2vh;
+}
+/* .render-comments-info-text-date p {
+    font-size: 1.6vh;
+} */
+.render-comments-info-replies {
+    display: flex;
+    height: 20%;
+}
+.render-comments-info-replies p {
+    font-size: 1.6vh;
+    margin-left: 1.4vh;
+    cursor: pointer;
+}
