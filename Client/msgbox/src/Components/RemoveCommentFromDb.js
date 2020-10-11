@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-const RemoveCommentFromDb = ({commentId}) => {
+const RemoveCommentFromDb = ({removeCommentId}) => {
 
   const removeComment = (id) => {
     console.log('asdsa')
@@ -13,10 +13,10 @@ const RemoveCommentFromDb = ({commentId}) => {
   }
 
   useEffect(() => {
-    if (commentId !== '') {
-      removeComment(commentId)
+    if (removeCommentId !== '') {
+      removeComment(removeCommentId)
     }
-  },[commentId]);
+  },[removeCommentId]);
 
   return(
     <>

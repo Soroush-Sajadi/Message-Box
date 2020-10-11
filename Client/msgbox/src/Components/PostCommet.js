@@ -9,7 +9,8 @@ const PostComment = ({comment}) => {
         "text":comment.text,
         "date": comment.date,
         "id":comment.id,
-        "replay": comment.replay
+        "replies": comment.replies,
+        "replied": comment.replied
       })
     })
     .then(res => res.json())

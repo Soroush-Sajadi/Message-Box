@@ -9,7 +9,7 @@ const CreateComments = ({ commentsFromDb }) => {
   const [ comment, setComment ] = useState([]);
   const [ comments, setComments ] = useState([]);
 
-  const removeComment = (id) => {
+  const removeComment = id => {
     comments.map((item, index) => {
       if (item.id === id) {
         comments.splice(index, 1);
@@ -18,15 +18,30 @@ const CreateComments = ({ commentsFromDb }) => {
     })
   }
 
+  const toggleReplyState = (id) => {
+    comments.map(item => {
+      if (item.id === id) {
+        item.replied = !item.replied
+        setComments(comments => [...comments])
+      }
+    })
+  }
+
+  const readyToReply = commentId => {
+    toggleReplyState(commentId)
+  }
+
   const getIdRemove = (commentId) => {
     removeComment(commentId)
   }
 
   const saveComments = (event) => {
     event.preventDefault();
+    const today = new Date();
+    const time = today.getHours() + ":" + today.getMinutes();
     const id = `${Math.floor(Math.random() * 100000000000)}`;
-    setComment({text: inputValue, date: '2020/10/9', id: id, replay: ''});
-    comments.push({text: inputValue, date: '2020/10/9', id: id, replay: ''});
+    setComment({text: inputValue, date: time, id: id, replies: [], replied: false});
+    comments.push({text: inputValue, date: time, id: id, replies: [], replied: false});
     setComments(comments => [...comments]);
     setInputValue('')
   }
@@ -34,10 +49,11 @@ const CreateComments = ({ commentsFromDb }) => {
   useEffect(() => {
     setComments(commentsFromDb)
   },[commentsFromDb])
+  console.log(comment)
   return(
     <div className="comments-wrapper">
       <PostComment comment={comment}/>
-      <RenderComments comments={comments} getIdRemove={getIdRemove} />
+      <RenderComments comments={comments} getIdRemove={getIdRemove} readyToReply={readyToReply} />
       <div className="comments-input-wrapper">
         <Input className="comments-input" 
           placeholder="Write a comment" 

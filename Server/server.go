@@ -12,21 +12,34 @@ import(
 	"github.com/rs/cors"
 )
 
+// type Salary struct {
+// 	Basic, HRA, TA float64
+// }
+
+// type Employee struct {
+// 	FirstName, LastName, Email string
+// 	Age                        int
+// 	MonthlySalary              []Salary
+// }
+
 type Comment struct {
-	Text      string `json:"text"`
-	Date      string `json:"date"`
-	ID        string `json:"id"`
-	Replay    string `json:"replay"`
+	Text      string    `json:"text"`
+	Date      string    `json:"date"`
+	ID        string    `json:"id"`
+	Replies   []Reply   `json:"replies"`
+	Replied   bool      `json:"replied"`
+
 	// Replay    *Replay `json:"replay"`
 }
 
-// type Replay struct {
-// 	// Firstname    string `json:"firstname"`
-// 	// Lastname     string `json:"lastname"`
-// 	Text      string `json:"text"`
-// 	Date      string `json:"date"`
-// 	ID        string `json:"id"`
-// }
+type Reply struct {
+	Text      	string `json:"text"`
+	Date      	string `json:"date"`
+	CommentID   string `json:"commentId"`
+	ReplyID		string `json:"replyId"`
+	// Reply     []Reply `json:"reply"`
+	// Replied   bool   `json:"replied"`
+}
 
 var comments []Comment
 
@@ -61,12 +74,29 @@ func createcomment(w http.ResponseWriter, r *http.Request) {
         return
 	}
 	comments = append(comments, comment)
-	fmt.Println(comments)
 	_ = json.NewDecoder(r.Body).Decode(&comment)
 	json.NewEncoder(w).Encode("It is done")
     // Do something with the Person struct...
     // fmt.Fprintf(w, "Person: %+v", comment)
 
+}
+func createcommentreply (w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	var reply Reply
+	err := json.NewDecoder(r.Body).Decode(&reply)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusBadRequest)
+        return
+	}
+	for i, item := range comments {
+		if item.ID == reply.CommentID {
+			// item.Replies = append(item.Replies, reply)
+			comments[i].Replies = append(comments[i].Replies, reply)
+			fmt.Println(item.Replies, comments)
+			json.NewEncoder(w).Encode(comments)
+			return
+		}
+	}
 }
 // func updatebook(w http.ResponseWriter, r *http.Request) {
 // 	w.Header().Set("Content-Type", "application/json")
@@ -99,14 +129,16 @@ func deletecomment(w http.ResponseWriter, r *http.Request) {
 func main () {
 	route := mux.NewRouter()
 
-	comments = append(comments, Comment{Text: "Test", Date:"2020/01/07", ID:"1984212321", Replay:"knasd"})
-	comments = append(comments, Comment{Text: "Test2", Date:"2020/04/17", ID:"1981232321", Replay:"knasd"})
+	comments = append(comments, Comment{Text: "Test", Date:"2020/01/07", ID:"1984212322", Replies:[]Reply{Reply{Text:"Sa", Date:"14:15", CommentID:"1984212322", ReplyID:"132323"}}, Replied: false})
+	comments = append(comments, Comment{Text: "Test2", Date:"2020/01/07", ID:"1984212321", Replies:[]Reply{Reply{Text:"Sasda", Date:"20:12", CommentID:"1984212321", ReplyID:"143232"}}, Replied: false})
+
 	// books = append(books, Book{ID: "2", Isbn:"41232", Title:"Jungle", Author: &Author{Firstname:"Tom", Lastname:"Sea"}})
 	// books = append(books, Book{ID: "3", Isbn:"44122", Title:"Winston", Author: &Author{Firstname:"Jack", Lastname:"Nail"}})
 
 	route.HandleFunc("/api/comments", getbooks).Methods("GET")
 	// route.HandleFunc("/api/book/{id}", getbook).Methods("GET")
 	route.HandleFunc("/api/comment/add", createcomment).Methods("POST")
+	route.HandleFunc("/api/comment/reply/add", createcommentreply).Methods("POST")
 	// route.HandleFunc("/api/book/update/{id}", updatebook).Methods("PUT")
 	route.HandleFunc("/api/comment/delete/{id}", deletecomment).Methods("GET")
 	handler := cors.Default().Handler(route)
