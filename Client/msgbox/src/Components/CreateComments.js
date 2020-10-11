@@ -18,10 +18,19 @@ const CreateComments = ({ commentsFromDb }) => {
     })
   }
 
-  const toggleReplyState = (id) => {
+  const toggleReplyState = id => {
     comments.map(item => {
       if (item.id === id) {
         item.replied = !item.replied
+        setComments(comments => [...comments])
+      }
+    })
+  }
+
+  const toggleViewRepliesState = id => {
+    comments.map(item => {
+      if (item.id === id) {
+        item.viewReplies = !item.viewReplies
         setComments(comments => [...comments])
       }
     })
@@ -35,13 +44,17 @@ const CreateComments = ({ commentsFromDb }) => {
     removeComment(commentId)
   }
 
+  const getviewRepliesId = commentId => {
+    toggleViewRepliesState(commentId);
+  }
+
   const saveComments = (event) => {
     event.preventDefault();
     const today = new Date();
     const time = today.getHours() + ":" + today.getMinutes();
     const id = `${Math.floor(Math.random() * 100000000000)}`;
-    setComment({text: inputValue, date: time, id: id, replies: [], replied: false});
-    comments.push({text: inputValue, date: time, id: id, replies: [], replied: false});
+    setComment({text: inputValue, date: time, id: id, replies: [], replied: false, viewReplies: false});
+    comments.push({text: inputValue, date: time, id: id, replies: [], replied: false, viewReplies: false});
     setComments(comments => [...comments]);
     setInputValue('')
   }
@@ -49,11 +62,10 @@ const CreateComments = ({ commentsFromDb }) => {
   useEffect(() => {
     setComments(commentsFromDb)
   },[commentsFromDb])
-  console.log(comment)
   return(
     <div className="comments-wrapper">
       <PostComment comment={comment}/>
-      <RenderComments comments={comments} getIdRemove={getIdRemove} readyToReply={readyToReply} />
+      <RenderComments comments={comments} getIdRemove={getIdRemove} readyToReply={readyToReply} getviewRepliesId={getviewRepliesId} />
       <div className="comments-input-wrapper">
         <Input className="comments-input" 
           placeholder="Write a comment" 

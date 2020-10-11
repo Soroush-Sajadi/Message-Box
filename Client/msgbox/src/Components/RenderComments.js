@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import RemoveCommentFromDb from './RemoveCommentFromDb'
+import RemoveCommentFromDb from './RemoveCommentFromDb';
+import ReplyComments from './ReplyComments';
 import RenderReplyComments from './RenderReplyComments';
 import Profile from '../Images/profile.jpg'
 import '../Style/RenderComments.css';
 
-const RenderComments = ({comments, getIdRemove , readyToReply}) => {
+const RenderComments = ({comments, getIdRemove , readyToReply, getviewRepliesId}) => {
   const [ removeCommentId, setRemoveCommentId ] = useState('');
-  const [ reply, setReply ] = useState(false);
   const [ commentId, setCommentId ] = useState('')
 
   const removeComment = (event) => {
@@ -19,6 +19,10 @@ const RenderComments = ({comments, getIdRemove , readyToReply}) => {
     const id = event.target.getAttribute('id')
     readyToReply(id)
     setCommentId(id)
+  }
+
+  const viewReplies = (event) => {
+    getviewRepliesId(event.target.getAttribute('id'))
   }
   return(
     <div className="render-comments-wrapper">
@@ -34,15 +38,16 @@ const RenderComments = ({comments, getIdRemove , readyToReply}) => {
               </div>
               <div className="render-comments-info-replies">
                 <p id ={item.id} onClick={replyComment}>Reply</p>
-                {item.replies.length > 0 ? <p>view {item.replies.length} replies</p> : null } 
+                {item.replies.length > 0 ? <p id = {item.id} onClick={viewReplies}>view {item.replies.length} replies</p> : null } 
                 <p>{item.date}</p>
                 <p id = {item.id} onClick={removeComment}>Remove</p>
                
               </div>
              
             </div>
+            {item.viewReplies ? <p>{item.replies[0].text}</p>: null}
             {item.replied ?
-                  <RenderReplyComments commentId={commentId} />
+                  <ReplyComments commentId={commentId} />
                 : null}
           </div>
         )

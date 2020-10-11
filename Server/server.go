@@ -23,11 +23,12 @@ import(
 // }
 
 type Comment struct {
-	Text      string    `json:"text"`
-	Date      string    `json:"date"`
-	ID        string    `json:"id"`
-	Replies   []Reply   `json:"replies"`
-	Replied   bool      `json:"replied"`
+	Text      	string    `json:"text"`
+	Date      	string    `json:"date"`
+	ID        	string    `json:"id"`
+	Replies   	[]Reply   `json:"replies"`
+	Replied   	bool      `json:"replied"`
+	ViewReplies bool      `json:"viewReplies"`
 
 	// Replay    *Replay `json:"replay"`
 }
@@ -129,8 +130,8 @@ func deletecomment(w http.ResponseWriter, r *http.Request) {
 func main () {
 	route := mux.NewRouter()
 
-	comments = append(comments, Comment{Text: "Test", Date:"2020/01/07", ID:"1984212322", Replies:[]Reply{Reply{Text:"Sa", Date:"14:15", CommentID:"1984212322", ReplyID:"132323"}}, Replied: false})
-	comments = append(comments, Comment{Text: "Test2", Date:"2020/01/07", ID:"1984212321", Replies:[]Reply{Reply{Text:"Sasda", Date:"20:12", CommentID:"1984212321", ReplyID:"143232"}}, Replied: false})
+	comments = append(comments, Comment{Text: "Test", Date:"2020/01/07", ID:"1984212322", Replies:[]Reply{Reply{Text:"Sa", Date:"14:15", CommentID:"1984212322", ReplyID:"132323"}}, Replied: false, ViewReplies:false})
+	comments = append(comments, Comment{Text: "Test2", Date:"2020/01/07", ID:"1984212321", Replies:[]Reply{Reply{Text:"Sasda", Date:"20:12", CommentID:"1984212321", ReplyID:"143232"}}, Replied: false, ViewReplies:false})
 
 	// books = append(books, Book{ID: "2", Isbn:"41232", Title:"Jungle", Author: &Author{Firstname:"Tom", Lastname:"Sea"}})
 	// books = append(books, Book{ID: "3", Isbn:"44122", Title:"Winston", Author: &Author{Firstname:"Jack", Lastname:"Nail"}})
