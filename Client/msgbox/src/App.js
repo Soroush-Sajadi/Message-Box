@@ -1,11 +1,11 @@
 import React from 'react';
-import CreateComments from './Components/CreateComments'
+import GetCommentsFromDb from './Components/GetCommentsFromDb'
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <CreateComments />
+      <GetCommentsFromDb />
     </div>
   );
 }

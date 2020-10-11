@@ -2,7 +2,7 @@
 package main
 
 import(
-	// "fmt"
+	"fmt"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -17,8 +17,6 @@ type Comment struct {
 	Date      string `json:"date"`
 	ID        string `json:"id"`
 	Replay    string `json:"replay"`
-	// Isbn      string `json:"isbn"`
-	// Title     string `json:"title"`
 	// Replay    *Replay `json:"replay"`
 }
 
@@ -32,10 +30,10 @@ type Comment struct {
 
 var comments []Comment
 
-// func getbooks(w http.ResponseWriter, r *http.Request) {
-// 	w.Header().Set("Content-Type", "appication/json")
-// 	json.NewEncoder(w).Encode(books)
-// }
+func getbooks(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "appication/json")
+	json.NewEncoder(w).Encode(comments)
+}
 // func getbook(w http.ResponseWriter, r *http.Request) {
 // 	w.Header().Set("Content-Type", "application/json")
 // 	params := mux.Vars(r); //Get id
@@ -61,9 +59,11 @@ func createcomment(w http.ResponseWriter, r *http.Request) {
     if err != nil {
         http.Error(w, err.Error(), http.StatusBadRequest)
         return
-    }
+	}
+	comments = append(comments, comment)
+	fmt.Println(comments)
 	_ = json.NewDecoder(r.Body).Decode(&comment)
-	json.NewEncoder(w).Encode(comment)
+	json.NewEncoder(w).Encode("It is done")
     // Do something with the Person struct...
     // fmt.Fprintf(w, "Person: %+v", comment)
 
@@ -87,23 +87,24 @@ func createcomment(w http.ResponseWriter, r *http.Request) {
 func deletecomment(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
-	// for index, item := range books {
-	// 	if item.ID == params["id"] {
-	// 		books = append(books[:index], books[index+1:]...)
-	// 		break
-	// 	}
-	// }
+	for index, item := range comments {
+		if item.ID == params["id"] {
+			comments = append(comments[:index], comments[index+1:]...)
+			break
+		}
+	}
 	json.NewEncoder(w).Encode(params)
 }
 
 func main () {
 	route := mux.NewRouter()
 
-	// books = append(books, Book{ID: "1", Isbn:"44232", Title:"1984", Author: &Author{Firstname:"Goerge", Lastname:"Orvel"}})
+	comments = append(comments, Comment{Text: "Test", Date:"2020/01/07", ID:"1984212321", Replay:"knasd"})
+	comments = append(comments, Comment{Text: "Test2", Date:"2020/04/17", ID:"1981232321", Replay:"knasd"})
 	// books = append(books, Book{ID: "2", Isbn:"41232", Title:"Jungle", Author: &Author{Firstname:"Tom", Lastname:"Sea"}})
 	// books = append(books, Book{ID: "3", Isbn:"44122", Title:"Winston", Author: &Author{Firstname:"Jack", Lastname:"Nail"}})
 
-	// route.HandleFunc("/api/books", getbooks).Methods("GET")
+	route.HandleFunc("/api/comments", getbooks).Methods("GET")
 	// route.HandleFunc("/api/book/{id}", getbook).Methods("GET")
 	route.HandleFunc("/api/comment/add", createcomment).Methods("POST")
 	// route.HandleFunc("/api/book/update/{id}", updatebook).Methods("PUT")
