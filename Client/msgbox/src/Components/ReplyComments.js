@@ -23,7 +23,7 @@ const ReplyComments = ({commentId, getRepliesComments, getviewRepliesId}) => {
     <div className="render-reply-comments">
       <img src={Profile} alt="image"/>
       <Input  className="render-reply-comments-input"
-        placeholder="Write your comment"
+        placeholder="Reply"
         value={inputValue}
         onChange={event => setInputValue(event.target.value)}
         onKeyPress={event => event.key === 'Enter' ? saveReplies(event): null}
