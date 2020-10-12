@@ -6,7 +6,7 @@ import(
 	"log"
 	"net/http"
 	"github.com/gorilla/mux"  // must be installed by "go get -u github.com/gorilla/mux"
-	"github.com/rs/cors"
+	"github.com/rs/cors"      // must be installed by "go get github.com/rs/cors"
 )
 
 
