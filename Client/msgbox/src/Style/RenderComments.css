@@ -13,7 +13,7 @@
     display: flex;
     flex-wrap: wrap;
     width: 70vh;
-    box-shadow: 0 8px 6px -6px black
+    box-shadow: 6px 8px 6px -6px black;
 }
     
 

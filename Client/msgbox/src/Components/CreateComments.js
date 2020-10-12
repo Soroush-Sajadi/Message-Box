@@ -114,7 +114,7 @@ const CreateComments = ({ commentsFromDb }) => {
       <PostComment comment={comment}/>
       <RenderComments comments={comments} getIdRemove={getIdRemove} readyToReply={readyToReply} getviewRepliesId={getviewRepliesId} getRepliesComments={getRepliesComments} getremovedReply={getremovedReply} getCloseRepliesId={getCloseRepliesId} />
       <div className="comments-input-wrapper">
-        <Input className="comments-input" 
+        <input  
           placeholder="Write a comment" 
           value={inputValue} 
           onChange={event => setInputValue(event.target.value)}
