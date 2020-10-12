@@ -1,12 +1,20 @@
-import React from 'react';
-import Profile from '../Images/profile.jpg';
+import React, { useState } from 'react';
+import RemoveReplyFromDb from './RemoveReplyFromDb';
+import Profile from '../Images/user.png';
 import '../Style/RenderReplyComments.css';
 
 
 const RenderReplyComments = ({replies, getremovedReply}) => {
+  const [ replyId, setReplyId ] = useState('');
+  const [ commentId, setCommentId ] = useState('');
+
 
   const removeReply = (event) => {
-    getremovedReply(event.target.getAttribute('commentid'),event.target.getAttribute('replyid'))
+    const comment_id = event.target.getAttribute('commentid')
+    const reply_id = event.target.getAttribute('replyid')
+    getremovedReply(comment_id, reply_id);
+    setCommentId(comment_id);
+    setReplyId(reply_id);
   }
   return(
     <div className="render-reply-comments-wrapper">
@@ -26,6 +34,7 @@ const RenderReplyComments = ({replies, getremovedReply}) => {
             </div>
           </div>
       )}
+      <RemoveReplyFromDb commentId = {commentId} replyId ={replyId}/>
     </div>
   )
 }

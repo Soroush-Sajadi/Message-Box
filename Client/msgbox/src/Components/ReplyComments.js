@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Profile from '../Images/profile.jpg';
+import Profile from '../Images/user.png';
 import { Input } from '@material-ui/core';
 import PostReplyToDb from './PostReplyToDb';
 import '../Style/ReplyComments.css';
 
-const ReplyComments = ({commentId, getRepliesComments}) => {
+const ReplyComments = ({commentId, getRepliesComments, getviewRepliesId}) => {
   const [ inputValue, setInputValue ] = useState('');
   const [ reply, setReply ] = useState([]);
 
@@ -14,8 +14,9 @@ const ReplyComments = ({commentId, getRepliesComments}) => {
     const time = today.getHours() + ":" + today.getMinutes();
     const id = `${Math.floor(Math.random() * 100000000000)}`;
     const data = {text: inputValue, date: time, commentId:commentId, replyId: id}
-    setReply(data)
-    getRepliesComments(data)
+    setReply(data);
+    getRepliesComments(data);
+    getviewRepliesId(commentId);
     setInputValue('')
   }
   return(

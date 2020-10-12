@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import RemoveCommentFromDb from './RemoveCommentFromDb';
 import ReplyComments from './ReplyComments';
 import RenderReplyComments from './RenderReplyComments';
-import Profile from '../Images/profile.jpg'
+import Profile from '../Images/user.png'
 import '../Style/RenderComments.css';
 
 const RenderComments = ({comments, getIdRemove , readyToReply, getviewRepliesId, getRepliesComments, getremovedReply}) => {
@@ -28,7 +28,7 @@ const RenderComments = ({comments, getIdRemove , readyToReply, getviewRepliesId,
     <div className="render-comments-wrapper">
       {comments.length !== 0 ? 
         comments.map((item, i) =>
-          <div key={i} style={item.replied || item.viewReplies ?{margin: "1vh 1vh 9vh 1vh"}: {margin:"1vh"}} className="render-comments-card">
+          <div key={i} style={{margin:"1vh"}} className="render-comments-card">
             <div className="render-comments-img">
               <img src={Profile} alt="image" />
             </div>
@@ -47,7 +47,7 @@ const RenderComments = ({comments, getIdRemove , readyToReply, getviewRepliesId,
               <RenderReplyComments replies ={item.replies} getremovedReply={getremovedReply}  />
               : null}
             {item.replied ?
-                <ReplyComments commentId={commentId} getRepliesComments={getRepliesComments} />
+                <ReplyComments commentId={commentId} getRepliesComments={getRepliesComments} getviewRepliesId={getviewRepliesId} />
                 : null}
           </div>
         )

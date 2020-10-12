@@ -30,7 +30,7 @@ const CreateComments = ({ commentsFromDb }) => {
   const toggleViewRepliesState = id => {
     comments.map(item => {
       if (item.id === id) {
-        item.viewReplies = !item.viewReplies
+        item.viewReplies = true
         setComments(comments => [...comments])
       }
     })

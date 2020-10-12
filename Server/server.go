@@ -84,7 +84,6 @@ func createcommentreply (w http.ResponseWriter, r *http.Request) {
 		if item.ID == reply.CommentID {
 			// item.Replies = append(item.Replies, reply)
 			comments[i].Replies = append(comments[i].Replies, reply)
-			fmt.Println(item.Replies, comments)
 			json.NewEncoder(w).Encode(comments)
 			return
 		}
@@ -118,6 +117,11 @@ func deletecomment(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(params)
 }
 
+func deletecommentreply (w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	params := mux.Vars(r)
+}
+
 func main () {
 	route := mux.NewRouter()
 
@@ -133,6 +137,7 @@ func main () {
 	route.HandleFunc("/api/comment/reply/add", createcommentreply).Methods("POST")
 	// route.HandleFunc("/api/book/update/{id}", updatebook).Methods("PUT")
 	route.HandleFunc("/api/comment/delete/{id}", deletecomment).Methods("GET")
+	route.HandleFunc("/api/comment/reply/delete/{commentid}/{replyid}", deletecommentreply).Methods("GET")
 	handler := cors.Default().Handler(route)
 
 	log.Fatal(http.ListenAndServe(":8000", handler))
