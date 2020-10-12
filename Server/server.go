@@ -2,7 +2,7 @@
 package main
 
 import(
-	"fmt"
+	// "fmt"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -120,13 +120,24 @@ func deletecomment(w http.ResponseWriter, r *http.Request) {
 func deletecommentreply (w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
+	for i, item := range comments {
+		if item.ID == params["commentid"] {
+			for index, item := range comments[i].Replies {
+				if (item.ReplyID == params["replyid"]){
+				comments[i].Replies = append(comments[i].Replies[:index], comments[i].Replies[index+1:]...)
+				break
+				}
+			}
+		}
+	}
 }
 
 func main () {
 	route := mux.NewRouter()
 
 	comments = append(comments, Comment{Text: "Test", Date:"2020/01/07", ID:"1984212322", Replies:[]Reply{Reply{Text:"Sa", Date:"14:15", CommentID:"1984212322", ReplyID:"132323"}}, Replied: false, ViewReplies:false})
-	comments = append(comments, Comment{Text: "Test2", Date:"2020/01/07", ID:"1984212321", Replies:[]Reply{Reply{Text:"Sasda", Date:"20:12", CommentID:"1984212321", ReplyID:"143232"}}, Replied: false, ViewReplies:false})
+	comments = append(comments, Comment{Text: "Test2", Date:"2020/11/17", ID:"1984212321", Replies:[]Reply{Reply{Text:"Test22", Date:"04:11", CommentID:"1984212321", ReplyID:"13232323"}}, Replied: false, ViewReplies:false})
+
 
 	// books = append(books, Book{ID: "2", Isbn:"41232", Title:"Jungle", Author: &Author{Firstname:"Tom", Lastname:"Sea"}})
 	// books = append(books, Book{ID: "3", Isbn:"44122", Title:"Winston", Author: &Author{Firstname:"Jack", Lastname:"Nail"}})

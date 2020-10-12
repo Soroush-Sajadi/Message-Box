@@ -16,7 +16,6 @@ const GetCommentsFromDb = () => {
   useEffect(() => {
     getComments()
   },[])
-  console.log(comments)
   return(
     <>
       <CreateComments commentsFromDb = {comments}/>
