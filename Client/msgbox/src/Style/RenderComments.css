@@ -12,7 +12,6 @@
     display: flex;
     flex-wrap: wrap;
     width: 70vh;
-    height: 20vh;
     -moz-box-shadow: inset 0 0 13vh #238;
    -webkit-box-shadow: inset 0 0 13vh #238;
    box-shadow: inset 0 0 13vh #238
@@ -53,3 +52,15 @@
     margin-left: 1.4vh;
     cursor: pointer;
 }
+
+/* .t{
+    height: 0;
+    box-sizing: border-box;
+    list-style: none;
+    padding: 0;
+    opacity: 0;
+    /* visibility: hidden; */
+    /* padding: 10px;
+    -webkit-transition: opacity 600ms, height 600ms;
+            transition: opacity 600ms, height 600ms; */
+/*  */

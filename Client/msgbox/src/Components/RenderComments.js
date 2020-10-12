@@ -28,7 +28,7 @@ const RenderComments = ({comments, getIdRemove , readyToReply, getviewRepliesId}
     <div className="render-comments-wrapper">
       {comments.length !== 0 ? 
         comments.map((item, i) =>
-          <div key={i} style={item.replied ?{margin: "1vh 1vh 9vh 1vh"}: {margin:"1vh"}} className="render-comments-card">
+          <div key={i} style={item.replied || item.viewReplies ?{margin: "1vh 1vh 9vh 1vh"}: {margin:"1vh"}} className="render-comments-card">
             <div className="render-comments-img">
               <img src={Profile} alt="image" />
             </div>
@@ -41,14 +41,16 @@ const RenderComments = ({comments, getIdRemove , readyToReply, getviewRepliesId}
                 {item.replies.length > 0 ? <p id = {item.id} onClick={viewReplies}>view {item.replies.length} replies</p> : null } 
                 <p>{item.date}</p>
                 <p id = {item.id} onClick={removeComment}>Remove</p>
-               
               </div>
-             
             </div>
-            {item.viewReplies ? <p>{item.replies[0].text}</p>: null}
+            <div className="t">
+            {item.viewReplies ? 
+              <RenderReplyComments replies ={item.replies} />
+              : null}
             {item.replied ?
-                  <ReplyComments commentId={commentId} />
+                <ReplyComments commentId={commentId} />
                 : null}
+            </div>
           </div>
         )
       :null}

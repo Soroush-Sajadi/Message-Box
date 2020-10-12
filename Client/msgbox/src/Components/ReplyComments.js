@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Profile from '../Images/profile.jpg';
 import { Input } from '@material-ui/core';
 import PostReplyToDb from './PostReplyToDb';
-import '../Style/RenderReplyComments.css';
+import '../Style/ReplyComments.css';
 
 const ReplyComments = ({commentId}) => {
   const [ inputValue, setInputValue ] = useState('');
