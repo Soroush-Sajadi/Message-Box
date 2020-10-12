@@ -4,7 +4,7 @@ import { Input } from '@material-ui/core';
 import PostReplyToDb from './PostReplyToDb';
 import '../Style/ReplyComments.css';
 
-const ReplyComments = ({commentId}) => {
+const ReplyComments = ({commentId, getRepliesComments}) => {
   const [ inputValue, setInputValue ] = useState('');
   const [ reply, setReply ] = useState([]);
 
@@ -15,6 +15,7 @@ const ReplyComments = ({commentId}) => {
     const id = `${Math.floor(Math.random() * 100000000000)}`;
     const data = {text: inputValue, date: time, commentId:commentId, replyId: id}
     setReply(data)
+    getRepliesComments(data)
     setInputValue('')
   }
   return(

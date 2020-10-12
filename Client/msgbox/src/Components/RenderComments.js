@@ -5,7 +5,7 @@ import RenderReplyComments from './RenderReplyComments';
 import Profile from '../Images/profile.jpg'
 import '../Style/RenderComments.css';
 
-const RenderComments = ({comments, getIdRemove , readyToReply, getviewRepliesId}) => {
+const RenderComments = ({comments, getIdRemove , readyToReply, getviewRepliesId, getRepliesComments, getremovedReply}) => {
   const [ removeCommentId, setRemoveCommentId ] = useState('');
   const [ commentId, setCommentId ] = useState('')
 
@@ -43,14 +43,12 @@ const RenderComments = ({comments, getIdRemove , readyToReply, getviewRepliesId}
                 <p id = {item.id} onClick={removeComment}>Remove</p>
               </div>
             </div>
-            <div className="t">
             {item.viewReplies ? 
-              <RenderReplyComments replies ={item.replies} />
+              <RenderReplyComments replies ={item.replies} getremovedReply={getremovedReply}  />
               : null}
             {item.replied ?
-                <ReplyComments commentId={commentId} />
+                <ReplyComments commentId={commentId} getRepliesComments={getRepliesComments} />
                 : null}
-            </div>
           </div>
         )
       :null}

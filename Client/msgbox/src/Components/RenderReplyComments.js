@@ -3,7 +3,11 @@ import Profile from '../Images/profile.jpg';
 import '../Style/RenderReplyComments.css';
 
 
-const RenderReplyComments = ({replies}) => {
+const RenderReplyComments = ({replies, getremovedReply}) => {
+
+  const removeReply = (event) => {
+    getremovedReply(event.target.getAttribute('commentid'),event.target.getAttribute('replyid'))
+  }
   return(
     <div className="render-reply-comments-wrapper">
       {replies.map((item, index) => 
@@ -17,7 +21,7 @@ const RenderReplyComments = ({replies}) => {
               </div>
               <div className="render-reply-comments-info-date">
                 <p>{item.date}</p>
-                <p id = {item.id} >Remove</p>
+                <p replyid = {item.replyId} commentid = {item.commentId}  onClick={removeReply} >Remove</p>
               </div>
             </div>
           </div>

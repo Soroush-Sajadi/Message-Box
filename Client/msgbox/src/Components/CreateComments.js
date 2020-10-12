@@ -36,6 +36,30 @@ const CreateComments = ({ commentsFromDb }) => {
     })
   }
 
+  const addReply = (reply) => {
+    comments.map(item => {
+      if (item.id === reply.commentId) {
+        item.replies.push(reply);
+        setComments(comments => [...comments])
+      }
+    })
+  };
+
+  const removeReply = (commentId, replyId) => {
+    comments.map(item => {
+      if (item.id === commentId) {
+        item.replies.map((comment,index) => {
+          if (comment.replyId === replyId) {
+            item.replies.splice(index, 1)
+            setComments(comments => [...comments]);
+          }
+        })
+      }
+    })
+  };
+
+  
+
   const readyToReply = commentId => {
     toggleReplyState(commentId)
   }
@@ -48,13 +72,22 @@ const CreateComments = ({ commentsFromDb }) => {
     toggleViewRepliesState(commentId);
   }
 
+  const getRepliesComments = (reply) => {
+    addReply(reply)
+  }
+
+  const getremovedReply = (commentId, replyId) => {
+    removeReply(commentId, replyId)
+  }
+
   const saveComments = (event) => {
     event.preventDefault();
     const today = new Date();
     const time = today.getHours() + ":" + today.getMinutes();
     const id = `${Math.floor(Math.random() * 100000000000)}`;
-    setComment({text: inputValue, date: time, id: id, replies: [], replied: false, viewReplies: false});
-    comments.push({text: inputValue, date: time, id: id, replies: [], replied: false, viewReplies: false});
+    const data = {text: inputValue, date: time, id: id, replies: [], replied: false, viewReplies: false}
+    setComment(data);
+    comments.push(data);
     setComments(comments => [...comments]);
     setInputValue('')
   }
@@ -65,7 +98,7 @@ const CreateComments = ({ commentsFromDb }) => {
   return(
     <div className="comments-wrapper">
       <PostComment comment={comment}/>
-      <RenderComments comments={comments} getIdRemove={getIdRemove} readyToReply={readyToReply} getviewRepliesId={getviewRepliesId} />
+      <RenderComments comments={comments} getIdRemove={getIdRemove} readyToReply={readyToReply} getviewRepliesId={getviewRepliesId} getRepliesComments={getRepliesComments} getremovedReply={getremovedReply} />
       <div className="comments-input-wrapper">
         <Input className="comments-input" 
           placeholder="Write a comment" 
