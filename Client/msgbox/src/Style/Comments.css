@@ -8,25 +8,12 @@
     border-left: none;
     border-right: none;
     width: 50%;
-    margin:1% 20% 0 20%;
+    margin:3% 20% 0 20%;
 }
-.comments-wrapper input:focus {
+.comments-input:focus {
     outline: none;
-    border-bottom: 0.5vh solid blueviolet;
+    border-bottom: 0.5vh solid #3f51b5;
 }
 ::-webkit-input-placeholder {
     text-align: center;
  }
-/* .comments-input-wrapper {
-    width: 100%;
-    height: 15vh;
-    justify-content: center;
-
-
-}
-.comments-input {
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    margin-top: 50%;
-} */

@@ -94,8 +94,8 @@ func deletecommentreply (w http.ResponseWriter, r *http.Request) {
 func main () {
 	route := mux.NewRouter()
 
-	comments = append(comments, Comment{Text: "Test", Date:"2020/01/07", ID:"1984212322", Replies:[]Reply{Reply{Text:"Sa", Date:"14:15", CommentID:"1984212322", ReplyID:"132323"}}, Replied: false, ViewReplies:false})
-	comments = append(comments, Comment{Text: "Test2", Date:"2020/11/17", ID:"1984212321", Replies:[]Reply{Reply{Text:"Test22", Date:"04:11", CommentID:"1984212321", ReplyID:"13232323"}}, Replied: false, ViewReplies:false})
+	comments = append(comments, Comment{Text: "What do you think about life?", Date:"20:29", ID:"1984212322", Replies:[]Reply{Reply{Text:"There are many answers to this question", Date:"14:15", CommentID:"1984212322", ReplyID:"132323"}}, Replied: false, ViewReplies:false})
+	comments = append(comments, Comment{Text: "This song is the best", Date:"10:10", ID:"1984212321", Replies:[]Reply{Reply{Text:"right, best ever!", Date:"04:11", CommentID:"1984212321", ReplyID:"13232323"}}, Replied: false, ViewReplies:false})
 
 	route.HandleFunc("/api/comments", getbooks).Methods("GET")
 	route.HandleFunc("/api/comment/add", createcomment).Methods("POST")
