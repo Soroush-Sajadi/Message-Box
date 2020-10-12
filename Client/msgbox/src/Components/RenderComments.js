@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import RemoveCommentFromDb from './RemoveCommentFromDb';
 import ReplyComments from './ReplyComments';
 import RenderReplyComments from './RenderReplyComments';
@@ -8,6 +8,16 @@ import '../Style/RenderComments.css';
 const RenderComments = ({comments, getIdRemove , readyToReply, getviewRepliesId, getRepliesComments, getremovedReply, getCloseRepliesId}) => {
   const [ removeCommentId, setRemoveCommentId ] = useState('');
   const [ commentId, setCommentId ] = useState('')
+
+  const messagesEndRef = useRef(null)
+
+  const scrollToBottom = () => {
+    if (messagesEndRef.current !== null) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+    }
+  }
+
+  
 
   const removeComment = (event) => {
     const id = event.target.getAttribute('id');
@@ -28,11 +38,12 @@ const RenderComments = ({comments, getIdRemove , readyToReply, getviewRepliesId,
   const closeReplies = (event) => {
     getCloseRepliesId(event.target.getAttribute('id'))
   }
+  useEffect(scrollToBottom, [comments]);
   return(
-    <div className="render-comments-wrapper">
+    <div ref={messagesEndRef} className="render-comments-wrapper">
       {comments.length !== 0 ? 
         comments.map((item, i) =>
-          <div key={i} style={{margin:"1vh"}} className="render-comments-card">
+          <div ref={messagesEndRef} key={i} style={{margin:"1vh"}} className="render-comments-card">
             <div className="render-comments-img">
               <img src={Profile} alt="image" />
             </div>

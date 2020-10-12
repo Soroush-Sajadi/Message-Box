@@ -8,7 +8,6 @@ const RemoveReplyFromDb = ({ commentId, replyId }) => {
   }
   useEffect(() => {
     if (commentId !== '' && replyId !== '') {
-      console.log('chiiiiiiii?')
       removeReply(commentId, replyId)
     }
   },[commentId, replyId])
