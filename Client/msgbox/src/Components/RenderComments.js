@@ -17,8 +17,6 @@ const RenderComments = ({comments, getIdRemove , readyToReply, getviewRepliesId,
     }
   }
 
-  
-
   const removeComment = (event) => {
     const id = event.target.getAttribute('id');
     getIdRemove( id);
@@ -38,7 +36,7 @@ const RenderComments = ({comments, getIdRemove , readyToReply, getviewRepliesId,
   const closeReplies = (event) => {
     getCloseRepliesId(event.target.getAttribute('id'))
   }
-  useEffect(scrollToBottom, [comments]);
+  useEffect(scrollToBottom, [comments.length, comments[comments.length-1]]);
   return(
     <div ref={messagesEndRef} className="render-comments-wrapper">
       {comments.length !== 0 ? 
