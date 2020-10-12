@@ -27,7 +27,7 @@ const CreateComments = ({ commentsFromDb }) => {
     })
   }
 
-  const toggleViewRepliesState = id => {
+  const openViewReplies = id => {
     comments.map(item => {
       if (item.id === id) {
         item.viewReplies = true
@@ -35,6 +35,16 @@ const CreateComments = ({ commentsFromDb }) => {
       }
     })
   }
+
+  const closeViewReplies = id => {
+    comments.map(item => {
+      if (item.id === id) {
+        item.viewReplies = false
+        setComments(comments => [...comments])
+      }
+    })
+  }
+
 
   const addReply = (reply) => {
     comments.map(item => {
@@ -69,7 +79,11 @@ const CreateComments = ({ commentsFromDb }) => {
   }
 
   const getviewRepliesId = commentId => {
-    toggleViewRepliesState(commentId);
+    openViewReplies(commentId);
+  }
+
+  const getCloseRepliesId = id => {
+    closeViewReplies(id)
   }
 
   const getRepliesComments = (reply) => {
@@ -98,7 +112,7 @@ const CreateComments = ({ commentsFromDb }) => {
   return(
     <div className="comments-wrapper">
       <PostComment comment={comment}/>
-      <RenderComments comments={comments} getIdRemove={getIdRemove} readyToReply={readyToReply} getviewRepliesId={getviewRepliesId} getRepliesComments={getRepliesComments} getremovedReply={getremovedReply} />
+      <RenderComments comments={comments} getIdRemove={getIdRemove} readyToReply={readyToReply} getviewRepliesId={getviewRepliesId} getRepliesComments={getRepliesComments} getremovedReply={getremovedReply} getCloseRepliesId={getCloseRepliesId} />
       <div className="comments-input-wrapper">
         <Input className="comments-input" 
           placeholder="Write a comment" 

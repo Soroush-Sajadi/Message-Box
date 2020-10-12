@@ -5,7 +5,7 @@ import RenderReplyComments from './RenderReplyComments';
 import Profile from '../Images/user.png'
 import '../Style/RenderComments.css';
 
-const RenderComments = ({comments, getIdRemove , readyToReply, getviewRepliesId, getRepliesComments, getremovedReply}) => {
+const RenderComments = ({comments, getIdRemove , readyToReply, getviewRepliesId, getRepliesComments, getremovedReply, getCloseRepliesId}) => {
   const [ removeCommentId, setRemoveCommentId ] = useState('');
   const [ commentId, setCommentId ] = useState('')
 
@@ -24,6 +24,10 @@ const RenderComments = ({comments, getIdRemove , readyToReply, getviewRepliesId,
   const viewReplies = (event) => {
     getviewRepliesId(event.target.getAttribute('id'))
   }
+
+  const closeReplies = (event) => {
+    getCloseRepliesId(event.target.getAttribute('id'))
+  }
   return(
     <div className="render-comments-wrapper">
       {comments.length !== 0 ? 
@@ -38,7 +42,7 @@ const RenderComments = ({comments, getIdRemove , readyToReply, getviewRepliesId,
               </div>
               <div className="render-comments-info-replies">
                 <p id ={item.id} onClick={replyComment}>Reply</p>
-                {item.replies.length > 0 ? <p id = {item.id} onClick={viewReplies}>view {item.replies.length} replies</p> : null } 
+                {item.replies.length > 0 ? (!item.viewReplies ? <p id = {item.id} onClick={viewReplies}>view {item.replies.length} replies</p>: <p id = {item.id} onClick={closeReplies}>close replies</p> ) : null } 
                 <p>{item.date}</p>
                 <p id = {item.id} onClick={removeComment}>Remove</p>
               </div>
