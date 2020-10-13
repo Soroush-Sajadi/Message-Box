@@ -15,4 +15,9 @@ Then use two commands, go get -u github.com/gorilla/mux and go get github.com/rs
 When it is done use command go run server.go to run the server.<br>
 ...\Message-Box\Server\go run server.go<br>
 The app is serving on port http://localhost:3000. To make sure everything is fine reload the page <br>
+_____________________________________________________________________________________________________________<br>
+Stack:<br>
+React hooks<br>
+Golang<br>
+CSS
 
